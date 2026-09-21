@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import os
-from pathlib import Path
 import re
 import tempfile
+from dataclasses import dataclass
+from pathlib import Path
 from threading import RLock
 from uuid import UUID, uuid4
-
 
 UID_MARKER = "ha-todo"
 TASK_RE = re.compile(
@@ -108,7 +107,7 @@ class MarkdownTodoStore:
         """Update a task by stable UID."""
         with self._lock:
             document = self._read_document()
-            tasks, normalized = self._parse_and_normalize(document)
+            tasks, _ = self._parse_and_normalize(document)
             task = self._find(tasks, uid)
             new_summary = (
                 task.summary if summary is None else self._validate_summary(summary)
