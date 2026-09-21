@@ -1,0 +1,13 @@
+{
+  "domain": "obsidian_todo",
+  "name": "Obsidian Markdown To-do",
+  "codeowners": ["@Lowess"],
+  "config_flow": true,
+  "dependencies": ["todo"],
+  "documentation": "https://github.com/Lowess/ha-obsidian-todo",
+  "integration_type": "service",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Lowess/ha-obsidian-todo/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

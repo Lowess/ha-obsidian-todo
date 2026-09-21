@@ -1,0 +1,28 @@
+{
+  "title": "Obsidian Markdown To-do",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add an Obsidian Markdown to-do list",
+        "description": "The vault must be mounted read/write inside the Home Assistant container. The note path is relative to the vault.",
+        "data": {
+          "name": "List name",
+          "vault_path": "Vault directory",
+          "note_path": "Markdown note path"
+        }
+      }
+    },
+    "error": {
+      "cannot_access": "Home Assistant cannot read and write this location.",
+      "invalid_path": "The note must use a relative path inside the vault."
+    },
+    "abort": {
+      "already_configured": "This Markdown note is already configured."
+    }
+  },
+  "exceptions": {
+    "read_failed": {
+      "message": "Unable to read the configured Markdown note."
+    }
+  }
+}

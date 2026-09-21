@@ -1,0 +1,28 @@
+{
+  "title": "Tâches Markdown Obsidian",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Ajouter une liste de tâches Markdown Obsidian",
+        "description": "Le coffre doit être monté en lecture-écriture dans le conteneur Home Assistant. Le chemin de la note est relatif au coffre.",
+        "data": {
+          "name": "Nom de la liste",
+          "vault_path": "Dossier du coffre",
+          "note_path": "Chemin de la note Markdown"
+        }
+      }
+    },
+    "error": {
+      "cannot_access": "Home Assistant ne peut pas lire et écrire à cet emplacement.",
+      "invalid_path": "La note doit utiliser un chemin relatif situé dans le coffre."
+    },
+    "abort": {
+      "already_configured": "Cette note Markdown est déjà configurée."
+    }
+  },
+  "exceptions": {
+    "read_failed": {
+      "message": "Impossible de lire la note Markdown configurée."
+    }
+  }
+}
