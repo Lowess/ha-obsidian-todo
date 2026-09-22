@@ -30,6 +30,9 @@ async def async_setup_entry(
         vault_path=entry.data[CONF_VAULT_PATH],
         note_path=entry.data[CONF_NOTE_PATH],
         title=entry.data[CONF_NAME],
+        metadata_path=hass.config.path(
+            ".obsidian_todo", f"{entry.entry_id}.json"
+        ),
     )
     async_add_entities(
         [ObsidianTodoEntity(entry, store)], update_before_add=True
@@ -59,7 +62,7 @@ class ObsidianTodoEntity(TodoListEntity):
         """Refresh tasks from the Markdown note."""
         try:
             tasks = await self.hass.async_add_executor_job(self._store.load)
-        except OSError as err:
+        except (MarkdownStoreError, OSError) as err:
             raise HomeAssistantError(
                 translation_domain="obsidian_todo",
                 translation_key="read_failed",

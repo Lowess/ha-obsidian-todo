@@ -15,12 +15,18 @@ Obsidian, `obscli`, and a REST service are not required on the Home Assistant ho
 - Delete tasks.
 - Detect external edits on a 10-second polling interval.
 - Preserve non-task Markdown content.
+- Keep HA task IDs outside the Obsidian vault note.
 
-Each checkbox gets an invisible stable identifier:
+The Markdown remains clean and can be edited normally in Obsidian:
 
 ```markdown
-- [ ] Milk <!-- ha-todo:3d64bd38-8c8b-47a5-91be-56df0fdd8cf5 -->
+- [ ] Milk
+- [x] Coffee
 ```
+
+Home Assistant keeps stable IDs in `/config/.obsidian_todo/`, not in the
+vault. Existing `<!-- ha-todo:... -->` markers created by version 0.1 are
+removed automatically and their IDs are preserved during migration.
 
 ## Install with HACS
 
@@ -54,8 +60,8 @@ Copy `custom_components/obsidian_todo` into Home Assistant's
 
 ## Backup
 
-Back up the note before first use. On the first read, the integration adds an
-HTML comment containing a UUID to every checkbox that does not already have one.
+Back up the note before first use. The integration updates checkbox lines when
+tasks are changed from Home Assistant.
 
 ## Development
 
