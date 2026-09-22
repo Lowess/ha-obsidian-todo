@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Add local 256 px and 512 px brand icons for Home Assistant 2026.3 and newer.
+
 ## 0.2.0
 
 - Keep stable task IDs in Home Assistant metadata instead of Markdown comments.
