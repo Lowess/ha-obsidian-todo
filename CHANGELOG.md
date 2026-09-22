@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.4
+
+- Replace the Home Assistant brand artwork with the new Obsidian checklist
+  logo and retain transparent 256 px and 512 px variants.
+
 ## 0.2.3
 
 - Preserve the existing note owner's UID and GID during atomic writes so HA
