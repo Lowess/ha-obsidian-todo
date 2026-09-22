@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2
+
+- Remove legacy task ID comments even when Markdown has escaped their opening
+  delimiter with a backslash.
+
 ## 0.2.1
 
 - Add local 256 px and 512 px brand icons for Home Assistant 2026.3 and newer.

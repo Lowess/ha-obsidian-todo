@@ -81,6 +81,21 @@ class MarkdownTodoStoreTest(unittest.TestCase):
         self.assertEqual(uid, tasks[0].uid)
         self.assertNotIn("ha-todo:", self.note.read_text(encoding="utf-8"))
 
+    def test_escaped_legacy_markers_are_migrated_out_of_note(self) -> None:
+        uid = "b5196f6c-45de-4ea7-97f1-fe365c08c48a"
+        self.note.parent.mkdir(parents=True)
+        self.note.write_text(
+            f"- [x] Bibi \\<!-- ha-todo:{uid} -->\n",
+            encoding="utf-8",
+        )
+
+        tasks = self.store.load()
+
+        self.assertEqual(uid, tasks[0].uid)
+        self.assertEqual("Bibi", tasks[0].summary)
+        self.assertTrue(tasks[0].completed)
+        self.assertEqual("- [x] Bibi\n", self.note.read_text(encoding="utf-8"))
+
     def test_external_rename_retains_id(self) -> None:
         self.note.parent.mkdir(parents=True)
         self.note.write_text("- [ ] Milk\n- [ ] Bread\n", encoding="utf-8")

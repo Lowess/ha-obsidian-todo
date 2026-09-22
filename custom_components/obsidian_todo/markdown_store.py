@@ -15,7 +15,7 @@ LEGACY_TASK_RE = re.compile(
     r"^(?P<prefix>\s*[-*+]\s+)"
     r"\[(?P<status>[ xX])\]\s+"
     r"(?P<summary>.*?)"
-    r"(?:\s+<!--\s*ha-todo:(?P<uid>[0-9a-fA-F-]{36})\s*-->)?\s*$"
+    r"(?:\s+\\?<!--\s*ha-todo:(?P<uid>[0-9a-fA-F-]{36})\s*-->)?\s*$"
 )
 
 
