@@ -345,7 +345,7 @@ class MarkdownTodoStore:
     @staticmethod
     def _atomic_write(path: Path, text: str) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
-        existing_mode = path.stat().st_mode & 0o777 if path.exists() else None
+        existing_stat = path.stat() if path.exists() else None
         temp_name: str | None = None
         try:
             with tempfile.NamedTemporaryFile(
@@ -361,8 +361,9 @@ class MarkdownTodoStore:
                 temporary.write(text)
                 temporary.flush()
                 os.fsync(temporary.fileno())
-            if existing_mode is not None:
-                os.chmod(temp_name, existing_mode)
+            if existing_stat is not None:
+                os.chmod(temp_name, existing_stat.st_mode & 0o777)
+                os.chown(temp_name, existing_stat.st_uid, existing_stat.st_gid)
             os.replace(temp_name, path)
             temp_name = None
         finally:

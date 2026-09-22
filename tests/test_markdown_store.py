@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 MODULE_PATH = (
     Path(__file__).parents[1]
@@ -95,6 +96,20 @@ class MarkdownTodoStoreTest(unittest.TestCase):
         self.assertEqual("Bibi", tasks[0].summary)
         self.assertTrue(tasks[0].completed)
         self.assertEqual("- [x] Bibi\n", self.note.read_text(encoding="utf-8"))
+
+    def test_atomic_write_preserves_existing_owner(self) -> None:
+        self.note.parent.mkdir(parents=True)
+        self.note.write_text("before\n", encoding="utf-8")
+        existing_stat = self.note.stat()
+
+        with patch.object(markdown_store.os, "chown") as chown:
+            MarkdownTodoStore._atomic_write(self.note, "after\n")
+
+        chown.assert_called_once()
+        _, uid, gid = chown.call_args.args
+        self.assertEqual(existing_stat.st_uid, uid)
+        self.assertEqual(existing_stat.st_gid, gid)
+        self.assertEqual("after\n", self.note.read_text(encoding="utf-8"))
 
     def test_external_rename_retains_id(self) -> None:
         self.note.parent.mkdir(parents=True)

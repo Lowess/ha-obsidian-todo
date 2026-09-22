@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.3
+
+- Preserve the existing note owner's UID and GID during atomic writes so HA
+  does not lock other vault processes out of the file.
+
 ## 0.2.2
 
 - Remove legacy task ID comments even when Markdown has escaped their opening
