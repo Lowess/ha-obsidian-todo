@@ -117,7 +117,11 @@ class MarkdownTodoStore:
         with self._lock:
             document = self._read_document()
             tasks, _ = self._reconcile(document)
-            if document.lines and document.lines[-1].strip():
+            if (
+                document.lines
+                and document.lines[-1].strip()
+                and LEGACY_TASK_RE.match(document.lines[-1]) is None
+            ):
                 document.lines.append("")
             line_index = len(document.lines)
             document.lines.append(self._render_task("- ", False, clean_summary))

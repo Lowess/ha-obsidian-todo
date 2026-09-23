@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.5
+
+- Keep consecutive Home Assistant-created checkboxes together instead of
+  inserting a blank line before every new task.
+- Continue separating a new task list from preceding headings or prose.
+
 ## 0.2.4
 
 - Replace the Home Assistant brand artwork with the new Obsidian checklist

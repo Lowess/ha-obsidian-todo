@@ -67,6 +67,29 @@ class MarkdownTodoStoreTest(unittest.TestCase):
         self.assertEqual([], remaining)
         self.assertNotIn("Oat milk", self.note.read_text(encoding="utf-8"))
 
+    def test_consecutive_adds_do_not_insert_blank_lines_between_tasks(self) -> None:
+        self.store.add("Milk")
+        self.store.add("Bread")
+        self.store.add("Coffee")
+
+        self.assertEqual(
+            "# Shopping\n\n- [ ] Milk\n- [ ] Bread\n- [ ] Coffee\n",
+            self.note.read_text(encoding="utf-8"),
+        )
+
+    def test_add_separates_new_task_list_from_prose(self) -> None:
+        self.note.parent.mkdir(parents=True)
+        self.note.write_text(
+            "# Shopping\n\nKeep this paragraph.\n", encoding="utf-8"
+        )
+
+        self.store.add("Milk")
+
+        self.assertEqual(
+            "# Shopping\n\nKeep this paragraph.\n\n- [ ] Milk\n",
+            self.note.read_text(encoding="utf-8"),
+        )
+
     def test_legacy_markers_are_migrated_out_of_note(self) -> None:
         uid = "3d64bd38-8c8b-47a5-91be-56df0fdd8cf5"
         self.note.parent.mkdir(parents=True)
